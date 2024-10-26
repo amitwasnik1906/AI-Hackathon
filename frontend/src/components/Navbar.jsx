@@ -23,7 +23,7 @@ function Navbar() {
           </Link>
 
           {/* Search Bar - Hidden on mobile */}
-          <div className="hidden md:block flex-1 max-w-md mx-8">
+          {/* <div className="hidden md:block flex-1 max-w-md mx-8">
             <div className={`relative ${isSearchFocused ? 'ring-2 ring-white/50' : ''} rounded-lg`}>
               <input
                 type="text"
@@ -34,7 +34,7 @@ function Navbar() {
               />
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-white/70" />
             </div>
-          </div>
+          </div> */}
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">

@@ -7,36 +7,21 @@ const Product = require('../models/Product');
 // Create a new order
 router.post('/', async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: 'dummy_user_id' }).populate('items.product');
-    if (!cart || cart.items.length === 0) {
-      return res.status(400).json({ message: 'Cart is empty' });
-    }
+    const { user, items, totalAmount, shippingAddress, status } = req.body;
 
-    const orderItems = cart.items.map(item => ({
-      product: item.product._id,
-      quantity: item.quantity,
-      price: item.product.price,
-    }));
-
-    const totalAmount = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
+    // Create a new order with the provided data
     const order = new Order({
-      user: 'dummy_user_id',
-      items: orderItems,
+      user,
+      items,
       totalAmount,
-      shippingAddress: req.body.address,
+      shippingAddress,
+      status: status || 'Pending', // set default to 'Pending' if not provided
     });
 
+    // Save the order to the database
     await order.save();
 
-    // Update inventory
-    for (let item of cart.items) {
-      await Product.findByIdAndUpdate(item.product._id, { $inc: { inventory: -item.quantity } });
-    }
-
-    // Clear the cart
-    await Cart.findOneAndDelete({ user: 'dummy_user_id' });
-
+    // Respond with the created order
     res.status(201).json(order);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -44,9 +29,10 @@ router.post('/', async (req, res) => {
 });
 
 // Get all orders for a user
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const orders = await Order.find({ user: 'dummy_user_id' }).populate('items.product');
+    const {id} = req.params
+    const orders = await Order.find({ user: id}).populate('items.product');
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
