@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/ai_shop', {
+mongoose.connect('mongodb+srv://amit_1906:Yavatmal1234@cluster0.03zi0yb.mongodb.net/ai_shop', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
