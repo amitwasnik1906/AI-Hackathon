@@ -10,7 +10,7 @@ function Navbar() {
   const navigate = useNavigate();
   
   return (
-    <nav className="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
+    <nav className="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg py-3">
       <div className="container mx-auto px-4">
         {/* Main Navbar */}
         <div className="flex justify-between items-center h-16">

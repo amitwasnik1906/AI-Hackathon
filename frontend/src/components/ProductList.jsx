@@ -50,7 +50,7 @@ function ProductList({ products }) {
                 <img 
                   src={product.image} 
                   alt={product.name} 
-                  className="w-full h-48 object-cover"
+                  className="w-full h-full object-cover p-4"
                 />
               </div>
               <div className="absolute top-4 right-4">

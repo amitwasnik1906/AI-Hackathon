@@ -7,7 +7,6 @@ function Checkout() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     address: '',
     cardNumber: '',
     expiryDate: '',
@@ -36,7 +35,7 @@ function Checkout() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/orders', { ...formData, cart });
+      await axios.post('http://localhost:5000/api/orders', { ...formData, cart, user : "sumitpati9745@gmail.com" });
       await axios.delete('http://localhost:5000/api/cart');
       // Add success handling here
     } catch (error) {
@@ -88,19 +87,6 @@ function Checkout() {
                   required
                   className="pl-10 w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                   placeholder="John Doe"
-                />
-              </InputWrapper>
-
-              <InputWrapper icon={Mail} label="Email Address">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="pl-10 w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                  placeholder="john@example.com"
                 />
               </InputWrapper>
 
