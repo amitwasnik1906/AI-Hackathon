@@ -5,6 +5,7 @@ const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
+const adminProductRoutes = require('./routes/adminProductRoutes');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/recommendations', recommendationRoutes);
+app.use('/api/admin/products', adminProductRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
