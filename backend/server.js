@@ -1,14 +1,30 @@
-import app from "./src/app.js";
-import dotenv from "dotenv";
-import connectDatabase from "./src/config/database.js";
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const recommendationRoutes = require('./routes/recommendationRoutes');
 
-// config
-if (process.env.NODE_ENV !== "PRODUCTION") {
-  dotenv.config({path: "src/config/config.env"});
-}
+const app = express();
 
-connectDatabase();
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-app.listen(process.env.PORT || 4000, () => {
-  console.log(`Server is working on http://localhost:${process.env.PORT}`);
-});
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/ai_shop', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch((err) => console.error('Error connecting to MongoDB:', err));
+
+// Routes
+app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/recommendations', recommendationRoutes);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
